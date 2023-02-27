@@ -1,0 +1,14 @@
+.checkbox {
+    width: 500px;
+    margin-left: 30%;
+    margin-top: 20px;
+}
+
+/* .checkbox.hidden {
+    display: none;
+} */
+
+.checkbox-inner {
+    display: flex;
+    justify-content: space-between;
+}
