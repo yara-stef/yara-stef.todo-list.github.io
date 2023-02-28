@@ -32,6 +32,7 @@ const Textfield = (props) => {
                         value={props.todoItem}
                         label="Add Todo..."
                         onChange={props.changeText}
+                        placeholder="Add Todo..."
                     />
                 </FormControl>
                 <ThemeProvider theme={theme}>      

@@ -12,3 +12,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+.checkbox-inner.text-done {
+    text-decoration: line-through;
+}

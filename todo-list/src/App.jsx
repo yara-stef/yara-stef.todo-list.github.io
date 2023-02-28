@@ -27,10 +27,22 @@ function App() {
         }
     };
 
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos))
-    }, [todos]);
+    
 
+    const deleteTodo = (id) => {
+        let newTodos = todos.filter((todo) => todo.id !== id);
+        setTodos([...newTodos]);
+    };
+
+    const toggleComplete = (id) => {
+		todos.find((todo) => {
+			if (todo.id === id) {
+				todo.complete = !todo.complete;
+			}
+			return setTodos([...todos]);
+		});
+    };
+    
     useEffect(() => {
         const todos = JSON.parse(localStorage.getItem('todos'));
         if (todos) {
@@ -38,17 +50,17 @@ function App() {
         }
     }, []);
 
-    const deleteTodo = (id) => {
-        let newTodos = todos.filter((todo) => todo.id !== id);
-        setTodos([...newTodos]);
-    };
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos]);
 
+    
 
   return (
     <div>
         <Title />
         <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
-          <CheckBox delete={deleteTodo} error={error} todos={todos } />
+          <CheckBox toggle={toggleComplete}  delete={deleteTodo} error={error} todos={todos } />
     </div>
     
   )

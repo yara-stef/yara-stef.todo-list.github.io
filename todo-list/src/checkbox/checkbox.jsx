@@ -19,28 +19,28 @@ const CheckBox = (props) => {
       {props.todos.map((todoItem) => {
         const { id, todo, complete } = todoItem;
         return (
-          <div className='checkbox-inner' key={id}>
-            <Checkbox {...label} />
+          <div key={id}>
+            <div className='checkbox-inner' key={id}>
+              <div onClick={props.toggle}>
+                {!complete ? (
+                  <Checkbox {...label} />
+                ) : (
+                    <Checkbox {...label} defaultChecked />
+                )}
+              </div>            
             <p className={complete ? 'text-done' : ''}>{todo}</p>
             <ThemeProvider theme={theme}>
                   <Button sx={{borderRadius: 50, }} color="neutral" variant="contained" onClick={() => props.delete(id)}>
                     Delete
                   </Button>
             </ThemeProvider>
+            </div>            
+            <hr></hr>
           </div>
+          
         )
       })}
-            {/* <div className='checkbox-inner'>
-                <Checkbox {...label} />
-                <span>{props.todos }</span>
-                <ThemeProvider theme={theme}>
-                  <Button sx={{borderRadius: 50, }} color="neutral" variant="contained" onClick={() => props.delete}>
-                    Delete
-                  </Button>
-                </ThemeProvider>
-            </div>            
-            <hr></hr> */}
-        </div>
+      </div>
        
     );
 };
