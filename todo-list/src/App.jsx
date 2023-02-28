@@ -4,9 +4,10 @@ import Title from './title/title'
 import Textfield from './textfield/textfield'
 import CheckBox from './checkbox/checkbox'
 
-function App() {
+const App = () => {
     const [todos, setTodos] = useState([]);
     const [todoItem, setTodoItem] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (todoItem) {
@@ -22,9 +23,7 @@ function App() {
             setTodoItem('');
         }
     };
-
     
-
     const deleteTodo = (id) => {
         let newTodos = todos.filter((todo) => todo.id !== id);
         setTodos([...newTodos]);
@@ -43,11 +42,13 @@ function App() {
         const todos = JSON.parse(localStorage.getItem('todos'));
         if (todos) {
             setTodos(todos);
+            console.log(todos);
         }
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos))
+        localStorage.setItem('todos', JSON.stringify(todos));
+        console.log(todos);
     }, [todos]);
 
     
@@ -56,7 +57,7 @@ function App() {
     <div>
         <Title />
         <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
-          <CheckBox toggle={toggleComplete}  delete={deleteTodo} todos={todos } />
+        <CheckBox toggle={toggleComplete}  delete={deleteTodo} todos={todos } />
     </div>
     
   )
