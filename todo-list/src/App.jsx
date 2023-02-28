@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Title from './title/title'
 import Textfield from './textfield/textfield'
@@ -27,6 +27,17 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos]);
+
+    useEffect(() => {
+        const todos = JSON.parse(localStorage.getItem('todos'));
+        if (todos) {
+            setTodos(todos);
+        }
+    }, []);
+
     const deleteTodo = (id) => {
         let newTodos = todos.filter((todo) => todo.id !== id);
         setTodos([...newTodos]);
@@ -36,7 +47,7 @@ function App() {
   return (
     <div>
         <Title />
-        <Textfield submit={handleSubmit} />
+        <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
           <CheckBox delete={deleteTodo} error={error} todos={todos } />
     </div>
     
