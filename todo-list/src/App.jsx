@@ -5,7 +5,8 @@ import Textfield from './textfield/textfield'
 import CheckBox from './checkbox/checkbox'
 
 const App = () => {
-    const [todos, setTodos] = useState([]);
+    const savedTodos = JSON.parse(localStorage.getItem('todos'))  || [];
+    const [todos, setTodos] = useState(savedTodos);
     const [todoItem, setTodoItem] = useState('');
 
     const handleSubmit = (e) => {
@@ -30,37 +31,34 @@ const App = () => {
     };
 
     const toggleComplete = (id) => {
-		todos.find((todo) => {
-			if (todo.id === id) {
-				todo.complete = !todo.complete;
-			}
-			return setTodos([...todos]);
-		});
+        todos.find((todo) => {
+            if (todo.id === id) {
+                todo.complete = !todo.complete;
+            }
+            return setTodos([...todos]);
+        });
     };
     
-    useEffect(() => {
-        const todos = JSON.parse(localStorage.getItem('todos'));
-        if (todos) {
-            setTodos(todos);
-            console.log(todos);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const item = JSON.parse(localStorage.getItem('todos'));
+    //     if (item) {
+    //         setTodos(item);
+    //         console.log(item);
+    //     }
+    // }, []);
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
         console.log(todos);
     }, [todos]);
 
-    
-
-  return (
-    <div>
-        <Title />
-        <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
-        <CheckBox toggle={toggleComplete}  delete={deleteTodo} todos={todos } />
-    </div>
-    
-  )
-}
+    return (
+        <div>
+            <Title />
+            <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
+            <CheckBox toggle={toggleComplete} delete={deleteTodo} todos={todos} />
+        </div>
+    );
+};
 
 export default App
