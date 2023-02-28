@@ -7,12 +7,9 @@ import CheckBox from './checkbox/checkbox'
 function App() {
     const [todos, setTodos] = useState([]);
     const [todoItem, setTodoItem] = useState('');
-    const [error, setError] = useState(false);
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (todoItem) {
-            setError(false);
             let uniqueId = new Date().getTime().toString(36) + new Date().getUTCMilliseconds();
             let newTodoItem = {
                 id: uniqueId,
@@ -22,7 +19,6 @@ function App() {
             setTodos([newTodoItem, ...todos]);
             setTodoItem('');
         } else {
-            setError(true);
             setTodoItem('');
         }
     };
@@ -60,7 +56,7 @@ function App() {
     <div>
         <Title />
         <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
-          <CheckBox toggle={toggleComplete}  delete={deleteTodo} error={error} todos={todos } />
+          <CheckBox toggle={toggleComplete}  delete={deleteTodo} todos={todos } />
     </div>
     
   )
