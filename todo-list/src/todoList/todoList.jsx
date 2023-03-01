@@ -1,9 +1,10 @@
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import TodoForm from '../todoForm/todoForm';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { borderRadius } from '@mui/system';
 
-const CheckBox = (props) => {
+const TodoList = (props) => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const theme = createTheme({
       palette: {
@@ -14,10 +15,12 @@ const CheckBox = (props) => {
       },
     });
 
+    
+  
   return (
     <div className='checkbox'>
       {props.todos.map((todoItem) => {
-        const { id, todo, complete } = todoItem;
+        const { id, text, complete } = todoItem;
         return (
           <div key={id}>
             <div className='checkbox-inner' key={id}>
@@ -28,7 +31,7 @@ const CheckBox = (props) => {
                     <Checkbox {...label} defaultChecked />
                 )}
               </div>            
-            <p className={complete ? 'text-done' : ''}>{todo}</p>
+            <p className={complete ? 'text-done' : ''}>{text}</p>
             <ThemeProvider theme={theme}>
                   <Button sx={{borderRadius: 50, }} color="neutral" variant="contained" onClick={() => props.delete(id)}>
                     Delete
@@ -45,5 +48,5 @@ const CheckBox = (props) => {
     );
 };
 
-export default CheckBox;
+export default TodoList;
 

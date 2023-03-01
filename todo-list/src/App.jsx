@@ -1,29 +1,47 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Title from './title/title'
-import Textfield from './textfield/textfield'
-import CheckBox from './checkbox/checkbox'
+import Title from './todo/todo'
+import TodoForm from './todoForm/todoForm'
+import TodoList from './todoList/todoList'
+import { createTheme } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles';
 
 const App = () => {
     const savedTodos = JSON.parse(localStorage.getItem('todos'))  || [];
     const [todos, setTodos] = useState(savedTodos);
-    const [todoItem, setTodoItem] = useState('');
+    // const [todoItem, setTodoItem] = useState('');
+    const theme = createTheme({
+        palette: {    
+            secondary: {
+            main: '#black',
+            },
+        },
+    });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (todoItem) {
-            let uniqueId = new Date().getTime().toString(36) + new Date().getUTCMilliseconds();
-            let newTodoItem = {
-                id: uniqueId,
-                todo: todoItem,
-                complete: false,
-            };
-            setTodos([newTodoItem, ...todos]);
-            setTodoItem('');
-        } else {
-            setTodoItem('');
-        }
-    };
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (todoItem) {
+    //         let uniqueId = new Date().getTime().toString(36) + new Date().getUTCMilliseconds();
+    //         let newTodoItem = {
+    //             id: uniqueId,
+    //             todo: todoItem,
+    //             complete: false,
+    //         };
+    //         setTodos([newTodoItem, ...todos]);
+    //         setTodoItem('');
+    //     } else {
+    //         setTodoItem('');
+    //     }
+    // };
+
+    const addTodo = (todo) => {
+        if (!todo.text) {
+            return
+        }; 
+        
+        const newTodos = [todo, ...todos];
+        setTodos(newTodos);
+    }
     
     const deleteTodo = (id) => {
         let newTodos = todos.filter((todo) => todo.id !== id);
@@ -55,8 +73,9 @@ const App = () => {
     return (
         <div>
             <Title />
-            <Textfield changeText={(e) => setTodoItem(e.target.value)} todoItem={todoItem} submit={handleSubmit} />
-            <CheckBox toggle={toggleComplete} delete={deleteTodo} todos={todos} />
+            <TodoForm onSubmit={addTodo} 
+                secondComponent={<ThemeProvider theme={theme} > </ThemeProvider>} />
+            <TodoList toggle={toggleComplete} delete={deleteTodo} todos={todos} />
         </div>
     );
 };
