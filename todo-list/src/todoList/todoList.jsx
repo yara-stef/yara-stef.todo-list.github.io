@@ -24,7 +24,7 @@ const TodoList = (props) => {
         return (
           <div key={id}>
             <div className='checkbox-inner' key={id}>
-              <div onClick={props.toggle}>
+              <div onClick={() => props.toggle(id)}>
                 {!complete ? (
                   <Checkbox {...label} />
                 ) : (

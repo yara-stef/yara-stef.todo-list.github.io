@@ -49,12 +49,17 @@ const App = () => {
     };
 
     const toggleComplete = (id) => {
-        todos.find((todo) => {
+        let updatedTodos = todos.filter((todo) => {
             if (todo.id === id) {
                 todo.complete = !todo.complete;
+               console.log(todo.complete); 
             }
-            return setTodos([...todos]);
+            
+            return todo;
         });
+        setTodos(updatedTodos);
+        console.log(updatedTodos);
+        console.log(todos);
     };
     
     // useEffect(() => {

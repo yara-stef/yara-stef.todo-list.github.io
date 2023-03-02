@@ -13,6 +13,6 @@
     justify-content: space-between;
 }
 
-.checkbox-inner.text-done {
+p.text-done {
     text-decoration: line-through;
 }
